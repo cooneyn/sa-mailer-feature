@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Monthly Tips Emails</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f5f5f5;
+}
+
+header {
+  background: #111827;
+  color: white;
+  padding: 16px 24px;
+  font-size: 18px;
+}
+
+.container {
+  padding: 24px;
+}
+
+.card {
+  background: white;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.animal {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.primary {
+  background: #2563eb;
+  color: white;
+}
+
+.secondary {
+  background: #e5e7eb;
+}
+
+.status {
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+.ready { color: #22c55e; }
+.missing { color: #ef4444; }
+.draft { color: #f59e0b; }
+
+.hidden {
+  display: none;
+}
+
+textarea, input {
+  width: 100%;
+  margin-top: 8px;
+  padding: 8px;
+}
+</style>
+</head>
+
+<body>
+
+<header>Monthly Tips Emails</header>
+
+<div class="container">
+
+<!-- OVERVIEW -->
+<div id="overview">
+  <div class="card">
+    <strong>Next Send:</strong> Tuesday 7th May 2026<br>
+    <span class="status missing">⚠️ 2 templates missing</span><br><br>
+    <button class="primary" onclick="goToMonth()">View Details</button>
+  </div>
+
+  <div class="card">
+    <table width="100%">
+      <tr>
+        <th align="left">Month</th>
+        <th>Status</th>
+        <th>Templates</th>
+      </tr>
+      <tr onclick="goToMonth()" style="cursor:pointer">
+        <td>May 2026</td>
+        <td class="missing">Missing</td>
+        <td>2 / 4</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<!-- MONTH DETAIL -->
+<div id="month" class="hidden">
+
+  <button onclick="goBack()">← Back</button>
+  <h2>May 2026</h2>
+
+  <div class="grid">
+
+    <div class="animal">
+      <strong>🐆 Panther (Christina)</strong>
+      <div class="status missing">Not created</div>
+      <button onclick="editTemplate('Panther')">Create</button>
+    </div>
+
+    <div class="animal">
+      <strong>🦚 Peacock (Alex)</strong>
+      <div class="status ready">Ready</div>
+      <button onclick="editTemplate('Peacock')">Edit</button>
+    </div>
+
+    <div class="animal">
+      <strong>🐬 Dolphin (Nick)</strong>
+      <div class="status draft">Draft</div>
+      <button onclick="editTemplate('Dolphin')">Edit</button>
+    </div>
+
+    <div class="animal">
+      <strong>🦉 Owl (Layla)</strong>
+      <div class="status missing">Not created</div>
+      <button onclick="editTemplate('Owl')">Create</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- TEMPLATE EDITOR -->
+<div id="editor" class="hidden">
+
+  <button onclick="goToMonth()">← Back</button>
+  <h2 id="editorTitle"></h2>
+
+  <div class="card">
+    <label>Subject</label>
+    <input id="subject" placeholder="Enter subject line">
+
+    <label>Body</label>
+    <textarea id="body" rows="8" placeholder="Write your email..."></textarea>
+
+    <br><br>
+    <button class="secondary" onclick="saveDraft()">Save Draft</button>
+    <button class="primary" onclick="markReady()">Mark Ready</button>
+    <button onclick="sendTest()">Send Test</button>
+  </div>
+
+</div>
+
+</div>
+
+<script>
+function goToMonth() {
+  document.getElementById('overview').classList.add('hidden');
+  document.getElementById('editor').classList.add('hidden');
+  document.getElementById('month').classList.remove('hidden');
+}
+
+function goBack() {
+  document.getElementById('month').classList.add('hidden');
+  document.getElementById('overview').classList.remove('hidden');
+}
+
+function editTemplate(animal) {
+  document.getElementById('month').classList.add('hidden');
+  document.getElementById('editor').classList.remove('hidden');
+  document.getElementById('editorTitle').innerText = "Editing: " + animal;
+}
+
+function saveDraft() {
+  alert("Draft saved");
+}
+
+function markReady() {
+  if (!document.getElementById('subject').value || !document.getElementById('body').value) {
+    alert("Subject and body required");
+    return;
+  }
+  alert("Marked as Ready");
+}
+
+function sendTest() {
+  alert("Test email sent");
+}
+</script>
+
+</body>
+</html>
